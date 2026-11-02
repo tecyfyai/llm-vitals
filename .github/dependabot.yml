@@ -4,6 +4,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # Must match engines.vscode in packages/vscode/package.json (the oldest editor supported),
+      # so it moves only when that does.
+      - dependency-name: "@types/vscode"
   - package-ecosystem: github-actions
     directory: /
     schedule:
