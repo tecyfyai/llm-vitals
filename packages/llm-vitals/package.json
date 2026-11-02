@@ -1,0 +1,50 @@
+{
+  "name": "llm-vitals",
+  "version": "0.1.0",
+  "description": "Live tokens per second, cache hit rate and context size for Claude Code and Codex, read from their local session logs.",
+  "keywords": [
+    "claude-code",
+    "codex",
+    "tokens-per-second",
+    "tok-s",
+    "llm",
+    "token-usage",
+    "prompt-cache",
+    "context-window",
+    "rate-limit",
+    "statusline",
+    "cli",
+    "ai-agents"
+  ],
+  "homepage": "https://hamperpick.in/tools/llm-vitals",
+  "bugs": "https://github.com/tecyfyai/llm-vitals/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tecyfyai/llm-vitals.git",
+    "directory": "packages/llm-vitals"
+  },
+  "license": "MIT",
+  "author": "Hamperpick Ventures LLP",
+  "type": "module",
+  "bin": {
+    "llm-vitals": "dist/cli/main.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./statusline.cjs": "./dist/statusline.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && esbuild src/cli/statusline-bin.ts --bundle --platform=node --format=cjs --target=node18 --minify --legal-comments=none --outfile=dist/statusline.cjs",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  }
+}

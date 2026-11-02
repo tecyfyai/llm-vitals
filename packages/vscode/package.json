@@ -1,0 +1,106 @@
+{
+  "name": "llm-vitals-vscode",
+  "displayName": "LLM Vitals: Claude Code & Codex Tokens per Second",
+  "description": "See live tokens per second, cache hit rate and context size for your Claude Code and Codex sessions in the status bar.",
+  "version": "0.1.0",
+  "publisher": "hamperpick",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#141722",
+    "theme": "dark"
+  },
+  "homepage": "https://hamperpick.in/tools/llm-vitals",
+  "bugs": "https://github.com/tecyfyai/llm-vitals/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tecyfyai/llm-vitals.git",
+    "directory": "packages/vscode"
+  },
+  "private": true,
+  "categories": [
+    "Other",
+    "AI"
+  ],
+  "keywords": [
+    "claude code",
+    "codex",
+    "tokens per second",
+    "tok/s",
+    "llm",
+    "ai agent",
+    "token usage",
+    "prompt cache",
+    "context window",
+    "rate limit",
+    "status bar",
+    "claude",
+    "openai"
+  ],
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "llmVitals.showSessions",
+        "title": "Show Active Sessions",
+        "category": "LLM Vitals"
+      },
+      {
+        "command": "llmVitals.enableClaudeStatusline",
+        "title": "Enable in Claude Code Status Line",
+        "category": "LLM Vitals"
+      },
+      {
+        "command": "llmVitals.disableClaudeStatusline",
+        "title": "Disable in Claude Code Status Line",
+        "category": "LLM Vitals"
+      }
+    ],
+    "configuration": {
+      "title": "LLM Vitals",
+      "properties": {
+        "llmVitals.refreshIntervalMs": {
+          "type": "number",
+          "default": 1000,
+          "minimum": 250,
+          "description": "How often to read new log lines, in milliseconds.",
+          "maximum": 60000,
+          "scope": "application"
+        },
+        "llmVitals.activeWindowMinutes": {
+          "type": "number",
+          "default": 60,
+          "minimum": 1,
+          "description": "Show sessions with log activity in the last N minutes.",
+          "maximum": 10080,
+          "scope": "application"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --platform=node --format=cjs --target=node20 --external:vscode --outfile=dist/extension.js --minify --sourcemap && node -e \"require('node:fs').copyFileSync(require.resolve('llm-vitals/statusline.cjs'),'dist/statusline.cjs')\"",
+    "typecheck": "tsc --noEmit",
+    "package": "vsce package --no-dependencies",
+    "publish:vscode": "vsce publish --no-dependencies",
+    "publish:openvsx": "ovsx publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/vscode": "1.90.0",
+    "@vscode/vsce": "^4.1.0",
+    "ovsx": "^1.3.0",
+    "llm-vitals": "*"
+  }
+}

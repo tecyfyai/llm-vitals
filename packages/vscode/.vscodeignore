@@ -1,0 +1,7 @@
+**
+!dist/extension.js
+!dist/statusline.cjs
+!package.json
+!media/icon.png
+!README.md
+!LICENSE
